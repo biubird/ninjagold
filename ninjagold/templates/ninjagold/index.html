@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ninja Gold!</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'ninjagold/css/styles.css' %}" meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>Your Gold: {{ request.session.count }}</h1>
+    <div class="location">
+      <form action="/process_money" method="post">
+        {% csrf_token %}
+        <p>Farm</p>
+        <p>(earns 10-20 golds)</p>
+        <input type="hidden" name="locationkey" value="farm" />
+        <input type="submit" value="Find Gold" />
+      </form>
+      <form action="/process_money" method="post">
+        {% csrf_token %}
+        <p>Cave</p>
+        <p>(earns 5-10 golds)</p>
+        <input type="hidden" name="locationkey" value="cave" />
+        <input type="submit" value="Find Gold" />
+      </form>
+      <form action="/process_money" method="post">
+        {% csrf_token %}
+        <p>House</p>
+        <p>(earns 2-5 golds)</p>
+        <input type="hidden" name="locationkey" value="house" />
+        <input type="submit" value="Find Gold" />
+      </form>
+      <form action="/process_money" method="post">
+        {% csrf_token %}
+        <p>Casino</p>
+        <p>(earns/loses 0-50 golds)</p>
+        <input type="hidden" name="locationkey" value="casino" />
+        <input type="submit" value="Find Gold" />
+      </form>
+    </div>
+      <h2>Activities:</h2>
+    <div class="activities">
+      <textarea="text" name="activities">
+      {% for act in request.session.activities %}
+        <h3 class="{{act.class}}"> {{ act.activity }} {{ act.date }}</h3>
+        {% endfor %}
+    </textarea>
+    </div>
+  </body>
+</html>
